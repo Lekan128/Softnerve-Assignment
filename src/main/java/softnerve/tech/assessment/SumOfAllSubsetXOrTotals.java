@@ -8,7 +8,7 @@ public class SumOfAllSubsetXOrTotals {
     public static double sumOfAllSubsetXOrTotals(Integer[] array) {
         double sum = 0;
         ArrayList<Integer[]> listOfSubsetOfArray = new ArrayList<>();
-        getSubsets(listOfSubsetOfArray, array, new ArrayList<>(), 0);
+        findSubsets(listOfSubsetOfArray, array, new ArrayList<>(), 0);
         for (Integer[] subset : listOfSubsetOfArray) {
             System.out.println(xOrAdditionOfAnArray(subset));
             sum += xOrAdditionOfAnArray(subset);
@@ -16,7 +16,7 @@ public class SumOfAllSubsetXOrTotals {
         return sum;
     }
 
-    private static void getSubsets(List<Integer[]> listOfSubset, Integer[] array, ArrayList<Integer> subset, int index)
+    private static void findSubsets(List<Integer[]> listOfSubset, Integer[] array, ArrayList<Integer> subset, int index)
     {
         // Base Condition
         //check if the index of the current element is the last index
@@ -27,12 +27,12 @@ public class SumOfAllSubsetXOrTotals {
 
         // Not Including Value which is at Index
         // find subsets of elements 1+index and add it
-        getSubsets(listOfSubset, array, new ArrayList<>(subset), index + 1);
+        findSubsets(listOfSubset, array, new ArrayList<>(subset), index + 1);
 
         // Including Value which is at Index
         // find subsets of elements 1+index and add it
         subset.add(array[index]);
-        getSubsets(listOfSubset, array, new ArrayList<>(subset), index + 1);
+        findSubsets(listOfSubset, array, new ArrayList<>(subset), index + 1);
     }
 
     public static ArrayList<Integer[]> getAllSubsetOfArray1(Integer[] array){

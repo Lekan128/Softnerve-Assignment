@@ -8,12 +8,31 @@ public class SumOfAllSubsetXOrTotals {
     public static double sumOfAllSubsetXOrTotals(Integer[] array) {
         double sum = 0;
         ArrayList<Integer[]> listOfSubsetOfArray = new ArrayList<>();
-        findSubsets(listOfSubsetOfArray, array, new ArrayList<>(), 0);
+        getSubsets(listOfSubsetOfArray, array, new ArrayList<>(), 0);
         for (Integer[] subset : listOfSubsetOfArray) {
             System.out.println(xOrAdditionOfAnArray(subset));
             sum += xOrAdditionOfAnArray(subset);
         }
         return sum;
+    }
+
+    private static void getSubsets(List<Integer[]> listOfSubset, Integer[] array, ArrayList<Integer> subset, int index)
+    {
+        // Base Condition
+        //check if the index of the current element is the last index
+        if (index == array.length) {
+            listOfSubset.add(turnArrayListIntoArray(subset));
+            return;
+        }
+
+        // Not Including Value which is at Index
+        // find subsets of elements 1+index and add it
+        getSubsets(listOfSubset, array, new ArrayList<>(subset), index + 1);
+
+        // Including Value which is at Index
+        // find subsets of elements 1+index and add it
+        subset.add(array[index]);
+        getSubsets(listOfSubset, array, new ArrayList<>(subset), index + 1);
     }
 
     public static ArrayList<Integer[]> getAllSubsetOfArray1(Integer[] array){
@@ -179,22 +198,5 @@ public class SumOfAllSubsetXOrTotals {
         return answerStringBuilder.toString();
     }
 
-    private static void findSubsets(List<Integer[]> listOfSubset, Integer[] array, ArrayList<Integer> subset, int index)
-    {
-        // Base Condition
-        //check if the index of the current element is the last index
-        if (index == array.length) {
-            listOfSubset.add(turnArrayListIntoArray(subset));
-            return;
-        }
 
-        // Not Including Value which is at Index
-        // find subsets of elements 1+index and add it
-        findSubsets(listOfSubset, array, new ArrayList<>(subset), index + 1);
-
-        // Including Value which is at Index
-        // find subsets of elements 1+index and add it
-        subset.add(array[index]);
-        findSubsets(listOfSubset, array, new ArrayList<>(subset), index + 1);
-    }
 }
